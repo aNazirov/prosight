@@ -1,0 +1,36 @@
+{
+  "files.trimTrailingWhitespace": true,
+  "prettier.singleQuote": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "cSpell.words": [
+    "ADAPTY",
+    "healthcheck",
+    "hget",
+    "hgetall",
+    "hincrby",
+    "hset",
+    "incompleted",
+    "interruptible",
+    "Pepa",
+    "permille",
+    "QLJSON",
+    "sadd",
+    "sismember",
+    "smismember",
+    "srem",
+    "tonapi",
+    "typegram",
+    "unmortgage",
+    "utime",
+    "WITHSCORES",
+    "zadd",
+    "zincrby",
+    "zrevrange",
+    "zrevrank",
+    "zscore"
+  ],
+  "CodeGPT.apiKey": "OpenAI"
+}

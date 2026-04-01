@@ -1,7 +1,15 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigModule, ConfigType } from '@nestjs/config';
-import { configs, databaseConfig } from './config/index';
+import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import type { StringValue } from 'ms';
+import {
+  AuthConfig,
+  authConfig,
+  configs,
+  DatabaseConfig,
+  databaseConfig,
+} from './config/index';
 
 @Global()
 @Module({
@@ -19,7 +27,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRootAsync({
       inject: [databaseConfig.KEY],
-      useFactory: (database: ConfigType<typeof databaseConfig>) => ({
+      useFactory: (database: DatabaseConfig) => ({
         type: 'postgres',
         host: database.host,
         port: database.port,
@@ -33,7 +41,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         },
       }),
     }),
+    JwtModule.registerAsync({
+      inject: [authConfig.KEY],
+      useFactory: (auth: AuthConfig) => ({
+        secret: auth.jwtSecret,
+        signOptions: {
+          expiresIn: auth.expiresIn as StringValue,
+        },
+      }),
+    }),
   ],
-  exports: [ConfigModule, TypeOrmModule],
+  exports: [ConfigModule, TypeOrmModule, JwtModule],
 })
 export class CommonModule {}
