@@ -7,18 +7,20 @@ import compression from 'compression';
 import * as os from 'os';
 import { AppModule } from './app.module';
 import { APP_CONFIG_TOKEN, AppConfig, GlobalConfig } from './common/config';
-import { ErrorInterceptor } from './common/interceptors/error-handler.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     cors: true,
   });
 
-  app.useGlobalInterceptors(new ErrorInterceptor());
   app.enableShutdownHooks();
   app.use(compression());
   app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
   );
 
   const configService = app.get<ConfigService<GlobalConfig>>(ConfigService);

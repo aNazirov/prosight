@@ -34,7 +34,10 @@ import {
         username: database.username,
         password: database.password,
         database: database.name,
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
+        autoLoadEntities: true,
+        extra: {
+          statement_timeout: 30_000,
+        },
       }),
     }),
     JwtModule.registerAsync({

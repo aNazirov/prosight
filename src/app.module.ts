@@ -5,6 +5,7 @@ import { HealthModule } from './business/health/health.module';
 import { LocusModule } from './business/locus/locus.module';
 import { CommonModule } from './common/common.module';
 import { ContextInterceptor } from './common/interceptors/context.interceptor';
+import { ErrorInterceptor } from './common/interceptors/error-handler.interceptor';
 import { LoggerInterceptor } from './common/interceptors/logger.interceptor';
 
 @Module({
@@ -17,6 +18,10 @@ import { LoggerInterceptor } from './common/interceptors/logger.interceptor';
     {
       provide: APP_INTERCEPTOR,
       useClass: LoggerInterceptor,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ErrorInterceptor,
     },
   ],
 })
