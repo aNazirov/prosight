@@ -35,10 +35,6 @@ import {
         password: database.password,
         database: database.name,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
-        ssl: {
-          rejectUnauthorized: false,
-        },
       }),
     }),
     JwtModule.registerAsync({
