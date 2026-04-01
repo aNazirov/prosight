@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { LoginResponseDto } from './dto/login-response.dto';
 import { LoginDto } from './dto/login.dto';
 
 @ApiTags('auth')
@@ -10,7 +11,11 @@ export class AuthController {
 
   @Post('login')
   @ApiOperation({ summary: 'Login with predefined user credentials' })
-  login(@Body() payload: LoginDto): Promise<{ accessToken: string }> {
+  @ApiOkResponse({
+    description: 'JWT access token',
+    type: LoginResponseDto,
+  })
+  login(@Body() payload: LoginDto): Promise<LoginResponseDto> {
     return this.authService.login(payload.username, payload.password);
   }
 }
